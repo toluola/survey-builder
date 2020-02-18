@@ -27,21 +27,24 @@ const NavBar = () => {
 };
 
 const NavWrapper = styled.div`
+  background: var(--mainWhite);
+  z-index: 100;
   display: flex;
   align-items: center;
   position: sticky;
+  top: 0;
   height: 6rem;
   border-bottom: 1px solid #dcdce4;
-  justify-content: flex-end;
   .nav-title {
-    flex-grow: 5;
+    flex-grow: 1;
     font-style: italic;
-    padding-left: 15em;
+    text-align: center;
     color: var(--mainPrimary);
   }
 
   .nav-button {
-    flex-grow: 2;
+    flex-grow: 1;
+    text-align: center;
   }
 `;
 
