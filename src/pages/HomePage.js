@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonContainer } from "../utils/Button";
 import { IconWrapper } from "../utils/Icon";
+import Slider from "../utils/Slider";
+import content from "../utils/content";
+import ArrowLeft from "../utils/ArrowLeft";
+import leftArrow from "../utils/svgs/left-arrow.svg";
+import rightArrow from "../utils/svgs/right-arrow.svg";
+import ArrowRight from "../utils/ArrowRight";
 
 const HomePage = () => {
+  const getWidth = () => window.innerWidth;
+  const [state, setState] = useState({
+    translate: 0,
+    transition: 0.45
+  });
+
+  const { translate, transition } = state;
   return (
     <React.Fragment>
       <HeroWrapper>
@@ -63,6 +76,37 @@ const HomePage = () => {
           </p>
         </div>
       </SubHeroWrapper>
+
+      <CardWrapper>
+        <h3>Don't just take our word for it…</h3>
+        <p>
+          Thousands of people put their trust in SurveyPlanet every day. Here’s
+          what
+          <br />
+          some of them had to say.
+        </p>
+      </CardWrapper>
+
+      <SliderContent>
+        <ArrowLeft>
+          <img src={leftArrow} alt="leftarrow" />
+        </ArrowLeft>
+        <ArrowRight>
+          <img src={rightArrow} alt="leftarrow" />
+        </ArrowRight>
+        <Slider
+          translate={translate}
+          transision={transition}
+          width={getWidth() * 4}
+        >
+          {content.map(content => (
+            <div key={content.id} className="slider-content">
+              <blockquote>{content.body}</blockquote>
+              <footer>{content.author}</footer>
+            </div>
+          ))}
+        </Slider>
+      </SliderContent>
     </React.Fragment>
   );
 };
@@ -77,6 +121,10 @@ const HeroWrapper = styled.div`
   .sub-hero {
     width: 25%;
     transform: translate(12em, 3em);
+  }
+
+  h3 {
+    color: var(--mainGrey);
   }
   .button:after {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjNTdDNzNCIj48cGF0aCBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0wIDEzaDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDlsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgOS43MDd6Ii8+PHBhdGggZD0iTTE1Ljk1IDEzLjcwN2wtNC4yNDMgNC4yNDMtLjcwNy0uNzA3TDE1LjI0MiAxM3oiLz48L2c+PGcgZmlsbD0iI0ZGRiI+PHBhdGggZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMCA0aDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDBsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgLjcwN3oiLz48cGF0aCBkPSJNMTUuOTUgNC43MDdMMTEuNzA3IDguOTUgMTEgOC4yNDMgMTUuMjQyIDR6Ii8+PC9nPjwvZz48L3N2Zz4=");
@@ -98,6 +146,7 @@ const SubHeroWrapper = styled.div`
   padding: 2em 5em 2em 15em;
   align-items: center;
   flex-wrap: wrap;
+  border-bottom: 0.01em solid var(--mainDarking);
   .icon-container {
     width: 50%;
   }
@@ -109,6 +158,38 @@ const SubHeroWrapper = styled.div`
   h4 {
     margin-left: 4.3em;
     font-size: 1.5em;
+  }
+`;
+
+const CardWrapper = styled.div`
+  text-align: center;
+  margin-top: 5em;
+  h3 {
+    font-size: 1.8em;
+    color: var(--mainGreen);
+    font-weight: normal;
+  }
+
+  p {
+    color: var(--mainGrey);
+    font-size: 1.4em;
+  }
+`;
+
+const SliderContent = styled.div`
+  position: relative;
+  overflow: hidden;
+  .slider-content {
+    margin: 2em 20em 10em 20em;
+    text-align: justify;
+    color: var(--mainGrey);
+    line-height: 1.5em;
+  }
+  footer {
+    color: var(--mainGreen);
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
   }
 `;
 
