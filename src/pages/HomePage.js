@@ -11,12 +11,45 @@ import ArrowRight from "../utils/ArrowRight";
 
 const HomePage = () => {
   const getWidth = () => window.innerWidth;
+  // const contentRef = useRef();
   const [state, setState] = useState({
     translate: 0,
-    transition: 0.45
+    transition: 0.45,
+    activeIndex: 0
   });
 
-  const { translate, transition } = state;
+  const { translate, transition, activeIndex } = state;
+  const nextSlide = () => {
+    console.log("got here");
+    if (activeIndex === content.length - 1) {
+      return setState({
+        ...state,
+        translate: 0,
+        activeIndex: 0
+      });
+    }
+    setState({
+      ...state,
+      activeIndex: activeIndex + 1,
+      translate: (activeIndex + 1) * getWidth()
+    });
+  };
+
+  const prevSlide = () => {
+    if (activeIndex === 0) {
+      return setState({
+        ...state,
+        translate: (content.length - 1) * getWidth(),
+        activeIndex: content.length - 1
+      });
+    }
+
+    setState({
+      ...state,
+      activeIndex: activeIndex - 1,
+      translate: (activeIndex - 1) * getWidth()
+    });
+  };
   return (
     <React.Fragment>
       <HeroWrapper>
@@ -88,10 +121,10 @@ const HomePage = () => {
       </CardWrapper>
 
       <SliderContent>
-        <ArrowLeft>
+        <ArrowLeft onClick={prevSlide}>
           <img src={leftArrow} alt="leftarrow" />
         </ArrowLeft>
-        <ArrowRight>
+        <ArrowRight onClick={nextSlide}>
           <img src={rightArrow} alt="leftarrow" />
         </ArrowRight>
         <Slider
@@ -190,6 +223,9 @@ const SliderContent = styled.div`
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: bold;
+  }
+  img:hover {
+    transform: scale(1.7);
   }
 `;
 
