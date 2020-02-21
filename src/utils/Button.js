@@ -7,7 +7,7 @@ export const ButtonContainer = styled.button`
   border: 0.05rem solid "var(--mainDarking)";
   margin: 0.2rem 0.5rem 0.2rem 0;
   padding: ${props => `${props.paddingTopBottom} ${props.paddingLeftRight}`};
-  border-radius: 0.5rem;
+  border-radius: ${props => (props.borderRadius ? "none" : "0.5rem")};
   transition: all 0.2s ease-in-out;
   color: ${props => (props.background ? "white" : "var(--mainGreen)")};
   cursor: pointer;

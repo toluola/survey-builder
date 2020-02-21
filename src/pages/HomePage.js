@@ -11,7 +11,6 @@ import ArrowRight from "../utils/ArrowRight";
 
 const HomePage = () => {
   const getWidth = () => window.innerWidth;
-  // const contentRef = useRef();
   const [state, setState] = useState({
     translate: 0,
     transition: 0.45,
@@ -20,7 +19,6 @@ const HomePage = () => {
 
   const { translate, transition, activeIndex } = state;
   const nextSlide = () => {
-    console.log("got here");
     if (activeIndex === content.length - 1) {
       return setState({
         ...state,
@@ -110,36 +108,70 @@ const HomePage = () => {
         </div>
       </SubHeroWrapper>
 
-      <CardWrapper>
-        <h3>Don't just take our word for it…</h3>
-        <p>
-          Thousands of people put their trust in SurveyPlanet every day. Here’s
-          what
-          <br />
-          some of them had to say.
-        </p>
-      </CardWrapper>
+      <CardContainer>
+        <CardWrapper>
+          <h3>Don't just take our word for it…</h3>
+          <p>
+            Thousands of people put their trust in SurveyPlanet every day.
+            Here’s what
+            <br />
+            some of them had to say.
+          </p>
+        </CardWrapper>
 
-      <SliderContent>
-        <ArrowLeft onClick={prevSlide}>
-          <img src={leftArrow} alt="leftarrow" />
-        </ArrowLeft>
-        <ArrowRight onClick={nextSlide}>
-          <img src={rightArrow} alt="leftarrow" />
-        </ArrowRight>
-        <Slider
-          translate={translate}
-          transision={transition}
-          width={getWidth() * 4}
-        >
-          {content.map(content => (
-            <div key={content.id} className="slider-content">
-              <blockquote>{content.body}</blockquote>
-              <footer>{content.author}</footer>
-            </div>
-          ))}
-        </Slider>
-      </SliderContent>
+        <SliderContent>
+          <ArrowLeft onClick={prevSlide}>
+            <img src={leftArrow} alt="leftarrow" />
+          </ArrowLeft>
+          <ArrowRight onClick={nextSlide}>
+            <img src={rightArrow} alt="rightarrow" />
+          </ArrowRight>
+          <Slider
+            translate={translate}
+            transision={transition}
+            width={getWidth() * 4}
+          >
+            {content.map(content => (
+              <div key={content.id} className="slider-content">
+                <blockquote>{content.body}</blockquote>
+                <footer>{content.author}</footer>
+              </div>
+            ))}
+          </Slider>
+        </SliderContent>
+      </CardContainer>
+      <FormWrapper>
+        <div className="form-aside">
+          <h3>Sign Up Now</h3>
+          <p>
+            Free unlimited surveys, questions & <br />
+            responses.
+          </p>
+        </div>
+        <div>
+          <form className="form">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              class="form-input"
+            />
+            <ButtonContainer
+              background
+              hover
+              paddingTopBottom="0.8rem"
+              paddingLeftRight="1.9rem"
+              className="button"
+              borderRadius
+            >
+              Get Started
+            </ButtonContainer>
+          </form>
+        </div>
+      </FormWrapper>
+      <FooterWrapper>
+        &copy;SurveyBuilder. All Rights Reserved. Tolu' Olaniyan
+      </FooterWrapper>
     </React.Fragment>
   );
 };
@@ -167,9 +199,6 @@ const HeroWrapper = styled.div`
     width: 16px;
     height: 9px;
     margin-left: 10px;
-    will-change: margin;
-    transition-property: margin;
-    transition-duration: 0.15s;
   }
 `;
 
@@ -196,7 +225,7 @@ const SubHeroWrapper = styled.div`
 
 const CardWrapper = styled.div`
   text-align: center;
-  margin-top: 5em;
+  padding-top: 5em;
   h3 {
     font-size: 1.8em;
     color: var(--mainGreen);
@@ -212,8 +241,9 @@ const CardWrapper = styled.div`
 const SliderContent = styled.div`
   position: relative;
   overflow: hidden;
+  border-bottom: 0.01em solid var(--mainDarking);
   .slider-content {
-    margin: 2em 20em 10em 20em;
+    padding: 2em 20em 5em 20em;
     text-align: justify;
     color: var(--mainGrey);
     line-height: 1.5em;
@@ -227,6 +257,60 @@ const SliderContent = styled.div`
   img:hover {
     transform: scale(1.7);
   }
+`;
+
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8em 0;
+  padding-bottom: 8em;
+  border-bottom: 0.01em solid var(--mainDarking);
+  .button:after {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjNTdDNzNCIj48cGF0aCBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0wIDEzaDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDlsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgOS43MDd6Ii8+PHBhdGggZD0iTTE1Ljk1IDEzLjcwN2wtNC4yNDMgNC4yNDMtLjcwNy0uNzA3TDE1LjI0MiAxM3oiLz48L2c+PGcgZmlsbD0iI0ZGRiI+PHBhdGggZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMCA0aDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDBsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgLjcwN3oiLz48cGF0aCBkPSJNMTUuOTUgNC43MDdMMTEuNzA3IDguOTUgMTEgOC4yNDMgMTUuMjQyIDR6Ii8+PC9nPjwvZz48L3N2Zz4=");
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    width: 16px;
+    height: 9px;
+    margin-left: 10px;
+  }
+  .form-aside {
+    padding-right: 8em;
+    text-align: center;
+  }
+  .form {
+    padding-left: 8em;
+  }
+  .form-input {
+    height: 4em;
+    width: 25em;
+    box-shadow: none;
+    box-sizing: border-box;
+    padding-left: 3px;
+    margin-right: -1px;
+  }
+  h3 {
+    font-size: 2em;
+    font-weight: normal;
+  }
+  p {
+    font-size: 1.4em;
+    line-height: 1.5;
+    color: var(--mainGrey);
+  }
+`;
+
+const CardContainer = styled.div`
+  background: var(--mainSecondary);
+`;
+
+const FooterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: -4em 0 1.2em 0;
+  color: var(--mainGrey);
 `;
 
 export default HomePage;
