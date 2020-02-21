@@ -5,10 +5,10 @@
   --mainSecondary: rgb(252, 251, 255);
   --mainDarking: rgb(220, 220, 228);
   --mainWhite: #f3f3f3;
+  --mainGrey: #9f9eb2;
 }
 
 body {
   font-family: "Oswald", sans-serif !important;
-  background: var(--mainWhite) !important;
   color: var(--mainPrimary) !important;
 }
