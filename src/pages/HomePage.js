@@ -1,58 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonContainer } from "../utils/Button";
+import TestimonialCarousel from "react-items-carousel";
 import { IconWrapper } from "../utils/Icon";
-import Slider from "../utils/Slider";
+import NavBar from "../components/NavBar";
 import content from "../utils/content";
-import ArrowLeft from "../utils/ArrowLeft";
-import leftArrow from "../utils/svgs/left-arrow.svg";
-import rightArrow from "../utils/svgs/right-arrow.svg";
-import ArrowRight from "../utils/ArrowRight";
 
 const HomePage = () => {
-  const getWidth = () => window.innerWidth;
   const [state, setState] = useState({
-    translate: 0,
-    transition: 0.45,
-    activeIndex: 0
+    activeItemIndex: 0
   });
 
-  const { translate, transition, activeIndex } = state;
-  const nextSlide = () => {
-    if (activeIndex === content.length - 1) {
-      return setState({
-        ...state,
-        translate: 0,
-        activeIndex: 0
-      });
-    }
-    setState({
-      ...state,
-      activeIndex: activeIndex + 1,
-      translate: (activeIndex + 1) * getWidth()
-    });
-  };
-
-  const prevSlide = () => {
-    if (activeIndex === 0) {
-      return setState({
-        ...state,
-        translate: (content.length - 1) * getWidth(),
-        activeIndex: content.length - 1
-      });
-    }
-
-    setState({
-      ...state,
-      activeIndex: activeIndex - 1,
-      translate: (activeIndex - 1) * getWidth()
-    });
-  };
+  const changeActiveItem = activeItemIndex => setState({ activeItemIndex });
+  const { activeItemIndex } = state;
   return (
     <React.Fragment>
+      <NavBar />
       <HeroWrapper>
         <div className="sub-hero">
-          <h1 className="hero-h1">A simple & powerful online survey tool.</h1>
+          <h1 className="hero-h1">A simple & powerful online survey tool</h1>
           <h3>
             Sign up now for free unlimited surveys, questions & responses.
           </h3>
@@ -69,7 +35,12 @@ const HomePage = () => {
       </HeroWrapper>
       <SubHeroWrapper>
         <div className="icon-container">
-          <IconWrapper url="image.png" height="10em" width="10em" />
+          <IconWrapper
+            url="image.png"
+            height="10em"
+            width="10em"
+            className="icon-wrapper"
+          />
           <h4>Custom Themes</h4>
           <p className="icon-content">
             Free SurveyPlanet users can choose between ten colorful survey
@@ -78,7 +49,12 @@ const HomePage = () => {
           </p>
         </div>
         <div className="icon-container">
-          <IconWrapper url="responsive.png" height="9em" width="10em" />
+          <IconWrapper
+            url="responsive.png"
+            height="9em"
+            width="10em"
+            className="icon-wrapper"
+          />
           <h4>Responsive Layout</h4>
           <p className="icon-content">
             Our surveys work on mobile devices, tablets and desktop computers.
@@ -87,7 +63,12 @@ const HomePage = () => {
           </p>
         </div>
         <div className="icon-container">
-          <IconWrapper url="easy.png" height="9em" width="10em" />
+          <IconWrapper
+            url="easy.png"
+            height="9em"
+            width="10em"
+            className="icon-wrapper"
+          />
           <h4>Fast & Easy</h4>
           <p className="icon-content">
             We've done our best to make creating surveys as enjoyable as
@@ -97,7 +78,12 @@ const HomePage = () => {
           </p>
         </div>
         <div className="icon-container">
-          <IconWrapper url="branding.png" height="9em" width="10em" />
+          <IconWrapper
+            url="branding.png"
+            height="9em"
+            width="10em"
+            className="icon-wrapper"
+          />
           <h4>Custom Branding</h4>
           <p className="icon-content">
             As much as we love our logo, we know that It's important for your
@@ -118,18 +104,16 @@ const HomePage = () => {
             some of them had to say.
           </p>
         </CardWrapper>
-
-        <SliderContent>
-          <ArrowLeft onClick={prevSlide}>
-            <img src={leftArrow} alt="leftarrow" />
-          </ArrowLeft>
-          <ArrowRight onClick={nextSlide}>
-            <img src={rightArrow} alt="rightarrow" />
-          </ArrowRight>
-          <Slider
-            translate={translate}
-            transision={transition}
-            width={getWidth() * 4}
+        <Slider>
+          <TestimonialCarousel
+            numberOfCards={1}
+            gutter={0}
+            requestToChangeActive={changeActiveItem}
+            activeItemIndex={activeItemIndex}
+            activePosition={"center"}
+            chevronWidth={10}
+            rightChevron={">"}
+            leftChevron={"<"}
           >
             {content.map(content => (
               <div key={content.id} className="slider-content">
@@ -137,9 +121,10 @@ const HomePage = () => {
                 <footer>{content.author}</footer>
               </div>
             ))}
-          </Slider>
-        </SliderContent>
+          </TestimonialCarousel>
+        </Slider>
       </CardContainer>
+
       <FormWrapper>
         <div className="form-aside">
           <h3>Sign Up Now</h3>
@@ -200,6 +185,25 @@ const HeroWrapper = styled.div`
     height: 9px;
     margin-left: 10px;
   }
+  @media (max-width: 850px) {
+    height: 15em;
+    background-image: none;
+    .sub-hero {
+      width: 100%;
+      text-align: center;
+      transform: translate(0em, 3em);
+      padding-right: 4em;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    h3 {
+      font-size: 0.6em;
+    }
+    .button:after {
+      display: none;
+    }
+  }
 `;
 
 const SubHeroWrapper = styled.div`
@@ -217,9 +221,26 @@ const SubHeroWrapper = styled.div`
     text-align: justify;
     color: var(--mainGrey);
   }
+  .icon-wrapper {
+    margin-left: 4em;
+  }
   h4 {
     margin-left: 4.3em;
     font-size: 1.5em;
+  }
+  @media (max-width: 850px) {
+    padding: 0 0 0 0;
+    .icon-container {
+      width: 100%;
+      margin: 2em;
+    }
+    .icon-content {
+      width: 100%;
+    }
+    h4 {
+      margin-left: 2.5em;
+      font-size: 1.4em;
+    }
   }
 `;
 
@@ -236,26 +257,8 @@ const CardWrapper = styled.div`
     color: var(--mainGrey);
     font-size: 1.4em;
   }
-`;
-
-const SliderContent = styled.div`
-  position: relative;
-  overflow: hidden;
-  border-bottom: 0.01em solid var(--mainDarking);
-  .slider-content {
-    padding: 2em 20em 5em 20em;
-    text-align: justify;
-    color: var(--mainGrey);
-    line-height: 1.5em;
-  }
-  footer {
-    color: var(--mainGreen);
-    text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-  img:hover {
-    transform: scale(1.7);
+  @media (max-width: 850px) {
+    padding-top: 1em;
   }
 `;
 
@@ -266,6 +269,7 @@ const FormWrapper = styled.div`
   margin: 8em 0;
   padding-bottom: 8em;
   border-bottom: 0.01em solid var(--mainDarking);
+  flex-wrap: wrap;
   .button:after {
     background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyBmaWxsPSIjNTdDNzNCIj48cGF0aCBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0wIDEzaDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDlsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgOS43MDd6Ii8+PHBhdGggZD0iTTE1Ljk1IDEzLjcwN2wtNC4yNDMgNC4yNDMtLjcwNy0uNzA3TDE1LjI0MiAxM3oiLz48L2c+PGcgZmlsbD0iI0ZGRiI+PHBhdGggZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMCA0aDE2djFIMHoiLz48cGF0aCBkPSJNMTEuNzA3IDBsNC4yNDMgNC4yNDMtLjcwNy43MDdMMTEgLjcwN3oiLz48cGF0aCBkPSJNMTUuOTUgNC43MDdMMTEuNzA3IDguOTUgMTEgOC4yNDMgMTUuMjQyIDR6Ii8+PC9nPjwvZz48L3N2Zz4=");
     display: inline-block;
@@ -299,10 +303,28 @@ const FormWrapper = styled.div`
     line-height: 1.5;
     color: var(--mainGrey);
   }
+  @media (max-width: 850px) {
+    margin: 2em 0;
+    .form-aside {
+      padding-right: 0;
+    }
+    .form {
+      padding-left: 0;
+    }
+    .button:after {
+      background-image: none;
+    }
+    .form-input {
+      width: 14em;
+      border: 2px solid var(--mainDarking);
+    }
+  }
 `;
 
 const CardContainer = styled.div`
   background: var(--mainSecondary);
+  padding-bottom: 4em;
+  border-bottom: 0.01em solid var(--mainDarking);
 `;
 
 const FooterWrapper = styled.div`
@@ -311,6 +333,24 @@ const FooterWrapper = styled.div`
   align-items: center;
   margin: -4em 0 1.2em 0;
   color: var(--mainGrey);
+  @media (max-width: 850px) {
+    margin: 0 0 1.2em 0;
+  }
+`;
+
+const Slider = styled.div`
+  padding: 2em 15em;
+  color: var(--mainGrey);
+  line-height: 1.5;
+  text-align: justify;
+  footer {
+    color: var(--mainGreen);
+    font-size: 1.2em;
+  }
+  @media (max-width: 850px) {
+    padding: 0 1em;
+    margin-bottom: -7em;
+  }
 `;
 
 export default HomePage;

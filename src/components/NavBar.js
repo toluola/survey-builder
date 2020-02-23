@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonContainer } from "../utils/Button";
 
 const NavBar = () => {
+  const [nav, setNav] = useState(false);
   return (
     <NavWrapper>
       <div className="nav-title">
@@ -20,6 +21,9 @@ const NavBar = () => {
         >
           Signup
         </ButtonContainer>
+      </div>
+      <div class={`icon ${nav ? "show-nav" : ""}`} onClick={() => setNav(true)}>
+        <i class="fa fa-bars"></i>
       </div>
       <hr />
     </NavWrapper>
@@ -41,10 +45,30 @@ const NavWrapper = styled.div`
     text-align: center;
     color: var(--mainPrimary);
   }
+  .icon {
+    display: none;
+    width: 2em;
+    font-size: 2em;
+  }
 
   .nav-button {
     flex-grow: 1;
     text-align: center;
+  }
+
+  @media (max-width: 850px) {
+    .nav-button {
+      display: none;
+    }
+    .icon {
+      display: block;
+    }
+    .nav-title {
+      text-align: left;
+      margin-left: 1.7em;
+    }
+    .show-bar:after {
+    }
   }
 `;
 
