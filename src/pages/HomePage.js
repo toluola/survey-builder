@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { ButtonContainer } from "../utils/Button";
 import TestimonialCarousel from "react-items-carousel";
 import { IconWrapper } from "../utils/Icon";
@@ -22,15 +23,17 @@ const HomePage = () => {
           <h3>
             Sign up now for free unlimited surveys, questions & responses.
           </h3>
-          <ButtonContainer
-            background
-            hover
-            paddingTopBottom="0.8rem"
-            paddingLeftRight="1.9rem"
-            className="button"
-          >
-            Get Started
-          </ButtonContainer>
+          <Link to="/signup">
+            <ButtonContainer
+              background
+              hover
+              paddingTopBottom="0.8rem"
+              paddingLeftRight="1.9rem"
+              className="button"
+            >
+              Get Started
+            </ButtonContainer>
+          </Link>
         </div>
       </HeroWrapper>
       <SubHeroWrapper>
@@ -43,7 +46,7 @@ const HomePage = () => {
           />
           <h4>Custom Themes</h4>
           <p className="icon-content">
-            Free SurveyPlanet users can choose between ten colorful survey
+            Free SurveyBuilder users can choose between ten colorful survey
             themes. Pro users can build custom themes by choosing their own
             colors, fonts and background images.
           </p>
@@ -87,7 +90,7 @@ const HomePage = () => {
           <h4>Custom Branding</h4>
           <p className="icon-content">
             As much as we love our logo, we know that It's important for your
-            surveys to match your own identity. SurveyPlanet Pro users can add
+            surveys to match your own identity. SurveyBuilder Pro users can add
             their own logo, link to their own website and even redirect
             participants to a custom success URL.
           </p>
@@ -98,7 +101,7 @@ const HomePage = () => {
         <CardWrapper>
           <h3>Don't just take our word for it…</h3>
           <p>
-            Thousands of people put their trust in SurveyPlanet every day.
+            Thousands of people put their trust in SurveyBuilder every day.
             Here’s what
             <br />
             some of them had to say.
@@ -141,16 +144,18 @@ const HomePage = () => {
               placeholder="Email Address"
               class="form-input"
             />
-            <ButtonContainer
-              background
-              hover
-              paddingTopBottom="0.8rem"
-              paddingLeftRight="1.9rem"
-              className="button"
-              borderRadius
-            >
-              Get Started
-            </ButtonContainer>
+            <Link to="/signup">
+              <ButtonContainer
+                background
+                hover
+                paddingTopBottom="0.8rem"
+                paddingLeftRight="1.9rem"
+                className="button"
+                borderRadius
+              >
+                Get Started
+              </ButtonContainer>
+            </Link>
           </form>
         </div>
       </FormWrapper>

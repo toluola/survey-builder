@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { ButtonContainer } from "../utils/Button";
 
 const NavBar = () => {
@@ -7,20 +8,26 @@ const NavBar = () => {
   return (
     <NavWrapper>
       <div className="nav-title">
-        <h2>SurveyBuilder</h2>
+        <Link to="/" className="nav-header">
+          <h2>SurveyBuilder</h2>
+        </Link>
       </div>
       <div className="nav-button">
-        <ButtonContainer paddingTopBottom="0.8rem" paddingLeftRight="1.9rem">
-          Login
-        </ButtonContainer>
-        <ButtonContainer
-          background
-          hover
-          paddingTopBottom="0.8rem"
-          paddingLeftRight="1.9rem"
-        >
-          Signup
-        </ButtonContainer>
+        <Link to="/Login">
+          <ButtonContainer paddingTopBottom="0.8rem" paddingLeftRight="1.9rem">
+            Login
+          </ButtonContainer>
+        </Link>
+        <Link to="/signup">
+          <ButtonContainer
+            background
+            hover
+            paddingTopBottom="0.8rem"
+            paddingLeftRight="1.9rem"
+          >
+            Signup
+          </ButtonContainer>
+        </Link>
       </div>
       <div class={`icon ${nav ? "show-nav" : ""}`} onClick={() => setNav(true)}>
         <i class="fa fa-bars"></i>
@@ -45,6 +52,10 @@ const NavWrapper = styled.div`
     text-align: center;
     color: var(--mainPrimary);
   }
+  .nav-header {
+    text-decoration: none;
+    color: #383f50;
+  }
   .icon {
     display: none;
     width: 2em;
@@ -66,8 +77,6 @@ const NavWrapper = styled.div`
     .nav-title {
       text-align: left;
       margin-left: 1.7em;
-    }
-    .show-bar:after {
     }
   }
 `;

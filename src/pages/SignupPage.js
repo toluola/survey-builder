@@ -10,16 +10,28 @@ const LoginPage = () => {
         <Link to="/" className="title">
           <h2>SurveyBuilder</h2>
         </Link>
-        <h4>Login to SurveyBuilder</h4>
+        <h4>Create Account</h4>
         <p>
-          New to SurveyBuilder?{" "}
-          <Link to="/signup" className="signup-link">
-            Signup now
+          Signup for FREE unlimited surveys, questions & responses. Already a
+          member?{" "}
+          <Link to="/login" className="signup-link">
+            Login
           </Link>
         </p>
       </div>
       <form>
         <ul>
+          <li>
+            <label for="full-name">Full Name</label>
+            <input
+              type="text"
+              name="full-name"
+              className="full-name"
+              id="full-name"
+              autofocus
+              tabindex="1"
+            />
+          </li>
           <li>
             <label for="email">Email</label>
             <input
@@ -27,8 +39,17 @@ const LoginPage = () => {
               id="email"
               name="email"
               className="email"
-              autofocus
-              tabindex="1"
+              tabindex="2"
+            />
+          </li>
+          <li>
+            <label for="verify-email">Verify Email</label>
+            <input
+              type="email"
+              id="verify-email"
+              name="verify-email"
+              className="verify-email"
+              tabindex="3"
             />
           </li>
           <li>
@@ -39,7 +60,7 @@ const LoginPage = () => {
               className="password"
               autocomplete="off"
               id="password"
-              tabindex="2"
+              tabindex="4"
             />
           </li>
           <li>
@@ -49,9 +70,9 @@ const LoginPage = () => {
               paddingTopBottom="0.8rem"
               paddingLeftRight="1.9rem"
               className="button"
-              tabindex="4"
+              tabindex="6"
             >
-              Login
+              Sign Up
             </ButtonContainer>
           </li>
         </ul>
