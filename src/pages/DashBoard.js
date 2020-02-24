@@ -10,7 +10,7 @@ const DashBoard = () => {
         <h1>SurveyBuilder</h1>
       </div>
       <div className="nav-items">
-        <Link to="" className="link">
+        <Link to="/create" className="link">
           CREATE SURVEY
         </Link>
         <Link to="" className="link">
@@ -32,7 +32,7 @@ const DashBoard = () => {
           allows you to interact with your users, to collect and analyze
           valuable data.
         </h2>
-        <Link to="">
+        <Link to="/create">
           <ButtonContainer
             hover
             paddingTopBottom="0.8rem"
